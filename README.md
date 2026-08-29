@@ -1,50 +1,48 @@
 # RxJava: Reactive Extensions for the JVM
 
-## End-of-Life notice
+## :information_source: 4.0.0 release: 2026.11.30. Monday. [Track](https://github.com/ReactiveX/RxJava/milestone/30)
 
-As of February 28, 2021, The RxJava 2.x branch and version is end-of-life (EOL). No further development, bugfixes, documentation changes, PRs, releases or maintenance will be performed by the project on the 2.x line.
+[![Maven Central](https://maven-badges.sml.io/sonatype-central/io.reactivex.rxjava4/rxjava/badge.svg)](https://maven-badges.sml.io/sonatype-central/io.reactivex.rxjava4/rxjava)
+[![codecov.io](http://codecov.io/github/ReactiveX/RxJava/coverage.svg?branch=4.x)](https://codecov.io/gh/ReactiveX/RxJava/branch/4.x)
+<a href='https://github.com/ReactiveX/RxJava/actions?query=workflow%3ASnapshot'><img src='https://github.com/ReactiveX/RxJava/workflows/Snapshot/badge.svg'></a>
 
-Users are encouraged to migrate to [3.x](https://github.com/ReactiveX/RxJava) which is currently the only official RxJava version being managed.
-
-----
-
-<a href='https://travis-ci.org/ReactiveX/RxJava/builds'><img src='https://travis-ci.org/ReactiveX/RxJava.svg?branch=2.x'></a>
-[![codecov.io](http://codecov.io/github/ReactiveX/RxJava/coverage.svg?branch=2.x)](https://codecov.io/gh/ReactiveX/RxJava/branch/2.x)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/ReactiveX/RxJava/badge)](https://securityscorecards.dev/viewer/?uri=github.com/ReactiveX/RxJava)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/12264/badge)](https://www.bestpractices.dev/projects/12264)
 
 RxJava is a Java VM implementation of [Reactive Extensions](http://reactivex.io): a library for composing asynchronous and event-based programs by using observable sequences.
 
 It extends the [observer pattern](http://en.wikipedia.org/wiki/Observer_pattern) to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety and concurrent data structures.
 
-#### Version 2.x ([Javadoc](http://reactivex.io/RxJava/2.x/javadoc/))
+#### Version 4.x ([Javadoc](http://reactivex.io/RxJava/4.x/javadoc/))
 
-- single dependency: [Reactive Streams](https://github.com/reactive-streams/reactive-streams-jvm)  
-- continued support for Java 6+ & [Android](https://github.com/ReactiveX/RxAndroid) 2.3+
-- performance gains through design changes learned through the 1.x cycle and through [Reactive-Streams-Commons](https://github.com/reactor/reactive-streams-commons) research project.
-- Java 8 lambda-friendly API
-- non-opinionated about source of concurrency (threads, pools, event loops, fibers, actors, etc)
-- async or synchronous execution
-- virtual time and schedulers for parameterized concurrency
+- :+1: Native Java 26 implementation<sup>1</sup>.
+- :+1: No 3rd party library required at runtime.
+- :+1: JPMS and :question: OSGi support still intact.
+- :+1: `java.util.concurrent.Flow`-based implementation.
+- :+1: Virtual Thread support; `virtualCreate()`, `virtualTransform()`, :eye: `Schedulers.virtual()`.
+- :+1: New `Streamable<T>` built around Virtual Threads & virtual blocking. Think `IAsyncEnumerable` for Java. :satellite: in progress.
+- :+1: Using Java Cleaner API to detect resource leaks and using it for adaptive cleanups.
+- :information_source: Reactive Streams Test Compatibility Kit usage; [Reactive-Streams](https://github.com/reactive-streams/reactive-streams-jvm).
+- :satellite: Reduce overload bloat by using `record`-based configurations.
+- :satellite: Internal optimizations now that I have the master :key:.
+- :eye: Possible usages for Scoped variables for context and per-item resource management.
+- :eye: Possible inclusion of 2nd and 3rd party operators.
+- :question: Android compatibility depends on your API level and what desugaring is available.
+- :warning: RxJava 3.x support will be toned down in the coming months, will be offered for +1 year after 4.x official release.
 
-Version 2.x and 1.x will live side-by-side for several years. They will have different group ids (`io.reactivex.rxjava2` vs `io.reactivex`) and namespaces (`io.reactivex` vs `rx`). 
-
-See the differences between version 1.x and 2.x in the wiki article [What's different in 2.0](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0). Learn more about RxJava in general on the <a href="https://github.com/ReactiveX/RxJava/wiki">Wiki Home</a>.
-
-#### Version 1.x
-
-The [1.x version](https://github.com/ReactiveX/RxJava/tree/1.x) is end-of-life as of **March 31, 2018**. No further development, support, maintenance, PRs and updates will happen. The [Javadoc]([Javadoc](http://reactivex.io/RxJava/1.x/javadoc/)) of the very last version, **1.3.8**, will remain accessible.
+<sup>1</sup> :stop: Unfortunately Java 27 has no language or API enhancements we can use, because Structured Concurrency remained preview for one.
 
 ## Getting started
 
 ### Setting up the dependency
 
-The first step is to include RxJava 2 into your project, for example, as a Gradle compile dependency:
+The first step is to include RxJava 4 into your project, for example, as a Gradle compile dependency:
 
 ```groovy
-implementation "io.reactivex.rxjava2:rxjava:2.x.y"
+implementation "io.reactivex.rxjava4:rxjava:4.x.y"
 ```
 
-(Please replace `x` and `y` with the latest version numbers: [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava)
+(Please replace `x` and `y` with the latest version numbers: [![Maven Central](https://maven-badges.sml.io/sonatype-central/io.reactivex.rxjava4/rxjava/badge.svg)](https://maven-badges.sml.io/sonatype-central/io.reactivex.rxjava4/rxjava)
 )
 
 ### Hello World
@@ -54,7 +52,7 @@ The second is to write the **Hello World** program:
 ```java
 package rxjava.examples;
 
-import io.reactivex.*;
+import io.reactivex.rxjava4.core.*;
 
 public class HelloWorld {
     public static void main(String[] args) {
@@ -63,28 +61,18 @@ public class HelloWorld {
 }
 ```
 
-If your platform doesn't support Java 8 lambdas (yet), you have to create an inner class of `Consumer` manually:
-
-```java
-import io.reactivex.functions.Consumer;
-
-Flowable.just("Hello world")
-  .subscribe(new Consumer<String>() {
-      @Override public void accept(String s) {
-          System.out.println(s);
-      }
-  });
-```
+Note that RxJava 4 components now live under `io.reactivex.rxjava4` and the base classes and interfaces live under `io.reactivex.rxjava4.core`.
 
 ### Base classes
 
-RxJava 2 features several base classes you can discover operators on:
+RxJava 4 features several base classes you can discover operators on:
 
-  - [`io.reactivex.Flowable`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Flowable.html): 0..N flows, supporting Reactive Streams and backpressure
-  - [`io.reactivex.Observable`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Observable.html): 0..N flows, no backpressure,
-  - [`io.reactivex.Single`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Single.html): a flow of exactly 1 item or an error,
-  - [`io.reactivex.Completable`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Completable.html): a flow without items but only a completion or error signal,
-  - [`io.reactivex.Maybe`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Maybe.html): a flow with no items, exactly one item or an error.
+  - [`io.reactivex.rxjava4.core.Flowable`](http://reactivex.io/RxJava/4.x/javadoc/io/reactivex/rxjava4/core/Flowable.html): 0 .. N flows, supporting Reactive-Streams and backpressure,
+  - [`io.reactivex.rxjava4.core.Observable`](http://reactivex.io/RxJava/4.x/javadoc/io/reactivex/rxjava4/core/Observable.html): 0 .. N flows, no backpressure,
+  - [`io.reactivex.rxjava4.core.Single`](http://reactivex.io/RxJava/4.x/javadoc/io/reactivex/rxjava4/core/Single.html): a flow of exactly 1 item or an error,
+  - [`io.reactivex.rxjava4.core.Completable`](http://reactivex.io/RxJava/4.x/javadoc/io/reactivex/rxjava4/core/Completable.html): a flow without items but only a completion or error signal,
+  - [`io.reactivex.rxjava4.core.Maybe`](http://reactivex.io/RxJava/4.x/javadoc/io/reactivex/rxjava4/core/Maybe.html): a flow with no items, exactly one item or an error.
+  - [`io.reactivex.rxjava4.core.Streamable`](http://reactivex.io/RxJava/4.x/javadoc/io/reactivex/rxjava4/core/Streamable.html): 0 .. N flows based on virtual blocking and `CompletionStage`-based state machines with native backpressure.
 
 ### Some terminology
 
@@ -98,7 +86,7 @@ source.operator1().operator2().operator3().subscribe(consumer);
 source.flatMap(value -> source.operator1().operator2().operator3());
 ```
 
-Here, if we imagine ourselves on `operator2`, looking to the left towards the source, is called the **upstream**. Looking to the right towards the subscriber/consumer, is called the **downstream**. This is often more apparent when each element is written on a separate line:
+Here, if we imagine ourselves on `operator2`, looking to the left towards the source is called the **upstream**. Looking to the right towards the subscriber/consumer is called the **downstream**. This is often more apparent when each element is written on a separate line:
 
 ```java
 source
@@ -114,9 +102,13 @@ In RxJava's documentation, **emission**, **emits**, **item**, **event**, **signa
 
 #### Backpressure
 
-When the dataflow runs through asynchronous steps, each step may perform different things with different speed. To avoid overwhelming such steps, which usually would manifest itself as increased memory usage due to temporary buffering or the need for skipping/dropping data, a so-called backpressure is applied, which is a form of flow control where the steps can express how many items are they ready to process. This allows constraining the memory usage of the dataflows in situations where there is generally no way for a step to know how many items the upstream will send to it.
+When the dataflow runs through asynchronous steps, each step may perform different things with different speed. To avoid overwhelming such steps, which usually would manifest itself as increased memory usage due to temporary buffering or the need for skipping/dropping data, so-called backpressure is applied, which is a form of flow control where the steps can express how many items are they ready to process. This allows constraining the memory usage of the dataflows in situations where there is generally no way for a step to know how many items the upstream will send to it.
 
-In RxJava, the dedicated `Flowable` class is designated to support backpressure and `Observable` is dedicated for the non-backpressured operations (short sequences, GUI interactions, etc.). The other types, `Single`, `Maybe` and `Completable` don't support backpressure nor should they; there is always room to store one item temporarily.
+In RxJava, the dedicated `Flowable` class is designated to support backpressure and `Observable` is dedicated to the non-backpressured operations (short sequences, GUI interactions, etc.). The other types, `Single`, `Maybe` and `Completable` don't support backpressure nor should they; there is always room to store one item temporarily.
+
+Since 4.0.0, the `Streamable` type gives natural backpressure because producers and consumers have to wait for
+each other to hand over data. Since waiting is blocking, the type natively works with Virtual Threaded `ExecutorService`s
+and the new `Schedulers.virtual()` `Scheduler`.
 
 #### Assembly time
 
@@ -129,7 +121,7 @@ Flowable<Integer> flow = Flowable.range(1, 5)
 ;
 ```
 
-At this point, the data is not flowing yet and no side-effects are happening.
+At this point, the data is not flowing yet and no side effects are happening.
 
 #### Subscription time
 
@@ -139,7 +131,7 @@ This is a temporary state when `subscribe()` is called on a flow that establishe
 flow.subscribe(System.out::println)
 ````
 
-This is when the **subscription side-effects** are triggered (see `doOnSubscribe`). Some sources block or start emitting items right away in this state.
+This is when the **subscription side effects** are triggered (see `doOnSubscribe`). Some sources block or start emitting items right away in this state.
 
 #### Runtime
 
@@ -167,7 +159,7 @@ Practically, this is when the body of the given example above executes.
 One of the common use cases for RxJava is to run some computation, network request on a background thread and show the results (or error) on the UI thread:
 
 ```java
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava4.schedulers.Schedulers;
 
 Flowable.fromCallable(() -> {
     Thread.sleep(1000); //  imitate expensive computation
@@ -201,16 +193,23 @@ Typically, you can move computations or blocking IO to some other thread via `su
 
 ### Schedulers
 
-RxJava operators don't work with `Thread`s or `ExecutorService`s directly but with so called `Scheduler`s that abstract away sources of concurrency behind a uniform API. RxJava 2 features several standard schedulers accessible via `Schedulers` utility class. 
+RxJava operators don't work with `Thread`s or `ExecutorService`s directly but with so-called `Scheduler`s that abstract away sources of concurrency behind a uniform API. RxJava 4 features several standard schedulers accessible via `Schedulers` utility class. 
 
-- `Schedulers.computation()`: Run computation intensive work on a fixed number of dedicated threads in the background. Most asynchronous operator use this as their default `Scheduler`.
-- `Schedulers.io()`: Run I/O-like or blocking operations on a dynamically changing set of threads.
+- `Schedulers.computation()`: Run computation intensive work on a fixed number of dedicated threads in the background. Most asynchronous operators use this as their default `Scheduler`.
+- `Schedulers.cached()`: Run I/O-like or blocking operations on a dynamically changing set of threads backed by native OS threads. :warning: Can exhaust system resources!
+- `Schedulers.virtual()`: Run I/O-like or blocking scatter-gather operations in a sequential manner on threads with virtualized stacks attached and detached to native OS threads on demand. :information_source: Helps with the issues around unboundedness of `Schedulers.cached()`.
 - `Schedulers.single()`: Run work on a single thread in a sequential and FIFO manner.
 - `Schedulers.trampoline()`: Run work in a sequential and FIFO manner in one of the participating threads, usually for testing purposes.
+- `Schedulers.createParallel()`: Allows creating a `Scheduler` with an user-configurable worker pool size and other parameters to contrast `computation()` which is always set to `availableProcessors()`/configured amount globally.
+- `Schedulers.createBlocking()`: Allows creating an event-loop style `Scheduler` which runs tasks and blocks on the thread calling `execute()`. Can be used to pull tasks onto a specific thread or have it itself run in a virtual threaded executor for maximum efficiency.
+- `Scheduler.shared()`: Every `Scheduler` or `Worker` can now be shared and act like its own full `Scheduler` with lifecycle tracking and dispose support. I.e., share one worker of `cached()` like it is some kind of `Schedulers.single()`.
 
-These are available on all JVM platforms but some specific platforms, such as Android, have their own typical `Scheduler`s defined: `AndroidSchedulers.mainThread()`, `SwingScheduler.instance()` or `JavaFXSchedulers.gui()`.
+In 4.x, the traditional I/O scheduler `Schedulers.io()` has been API deprecated and delegates to `Schedulers.cached()` for compatibility reasons. It is recommended you decide at these deprecated code locations which standard (or custom) scheduler
+to use: `cached()` like before or the new `virtual()` for more efficient system resource usages.
 
-In addition, there is option to wrap an existing `Executor` (and its subtypes such as `ExecutorService`) into a `Scheduler` via `Schedulers.from(Executor)`. This can be used, for example, to have a larger but still fixed pool of threads (unlike `computation()` and `io()` respectively).
+These are available on all JVM platforms but some specific platforms, such as Android, have their own typical `Scheduler`s defined: `AndroidSchedulers.mainThread()`, `SwingScheduler.instance()` or `JavaFXScheduler.platform()`.
+
+In addition, there is an option to wrap an existing `Executor` (and its subtypes such as `ExecutorService`) into a `Scheduler` via `Schedulers.from(Executor)`. This can be used, for example, to have a larger but still fixed pool of threads (unlike `computation()` and `io()` respectively).
 
 The `Thread.sleep(2000);` at the end is no accident. In RxJava the default `Scheduler`s run on daemon threads, which means once the Java main thread exits, they all get stopped and background computations may never happen. Sleeping for some time in this example situations lets you see the output of the flow on the console with time to spare.
 
@@ -243,7 +242,7 @@ Flowable.range(1, 10)
 
 Practically, parallelism in RxJava means running independent flows and merging their results back into a single flow. The operator `flatMap` does this by first mapping each number from 1 to 10 into its own individual `Flowable`, runs them and merges the computed squares.
 
-Note, however, that `flatMap` doesn't guarantee any order and the end result from the inner flows may end up interleaved. There are alternative operators:
+Note, however, that `flatMap` doesn't guarantee any order and the items from the inner flows may end up interleaved. There are alternative operators:
 
   - `concatMap` that maps and runs one inner flow at a time and
   - `concatMapEager` which runs all inner flows "at once" but the output flow will be in the order those inner flows were created.
@@ -278,7 +277,7 @@ Sometimes, when an item has become available, one would like to perform some dep
 
 #### Dependent
 
-The most typical scenario is to given a value, invoke another service, await and continue with its result:
+The most typical scenario is given a value, invoke another service, await and continue with its result:
 
 ```java
 service.apiCall()
@@ -309,7 +308,7 @@ continued.map(v -> v.toString())
 ```
 
 however, the continuation in this case stays `Observable` instead of the likely more appropriate `Single`. (This is understandable because
-from the perspective of `flatMapSingle`, `sourceObservable` is a multi-valued source and thus the mapping may result in multiple values as well).
+from the perspective of `flatMapSingle`, `sourceObservable` is a multivalued source and thus the mapping may result in multiple values as well).
 
 Often though there is a way that is somewhat more expressive (and also lower overhead) by using `Completable` as the mediator and its operator `andThen` to resume with something else:
 
@@ -363,7 +362,7 @@ Observable.range(1, 10)
 
 ### Type conversions
 
-Sometimes, a source or service returns a different type than the flow that is supposed to work with it. For example, in the inventory example above, `getDemandAsync` could return a `Single<DemandRecord>`. If the code example is left unchanged, this will result in a compile time error (however, often with misleading error message about lack of overload).
+Sometimes, a source or service returns a different type than the flow that is supposed to work with it. For example, in the inventory example above, `getDemandAsync` could return a `Single<DemandRecord>`. If the code example is left unchanged, this will result in a compile-time error (however, often with a misleading error message about lack of overload).
 
 In such situations, there are usually two options to fix the transformation: 1) convert to the desired type or 2) find and use an overload of the specific operator supporting the different type.
 
@@ -371,15 +370,16 @@ In such situations, there are usually two options to fix the transformation: 1) 
 
 Each reactive base class features operators that can perform such conversions, including the protocol conversions, to match some other type. The following matrix shows the available conversion options:
 
-|          | Flowable | Observable | Single | Maybe | Completable |
-|----------|----------|------------|--------|-------|-------------|
-|**Flowable**  |          | `toObservable` | `first`, `firstOrError`, `single`, `singleOrError`, `last`, `lastOrError`<sup>1</sup> | `firstElement`, `singleElement`, `lastElement` | `ignoreElements` |
-|**Observable**| `toFlowable`<sup>2</sup> |  | `first`, `firstOrError`, `single`, `singleOrError`, `last`, `lastOrError`<sup>1</sup> | `firstElement`, `singleElement`, `lastElement` | `ignoreElements` |
-|**Single** | `toFlowable`<sup>3</sup> | `toObservable` |  | `toMaybe` | `ignoreElement` |
-|**Maybe** | `toFlowable`<sup>3</sup> | `toObservable` | `toSingle` |  | `ignoreElement` |
-|**Completable** | `toFlowable` | `toObservable` | `toSingle` | `toMaybe` |  |
+|          | Flowable | Observable | Single | Maybe | Completable | Streamable |
+|----------|----------|------------|--------|-------|-------------|------------|
+|**Flowable**  |          | `toObservable` | `first`, `firstOrError`, `single`, `singleOrError`, `last`, `lastOrError`<sup>1</sup> | `firstElement`, `singleElement`, `lastElement` | `ignoreElements` | `toStreamable` |
+|**Observable**| `toFlowable`<sup>2</sup> |  | `first`, `firstOrError`, `single`, `singleOrError`, `last`, `lastOrError`<sup>1</sup> | `firstElement`, `singleElement`, `lastElement` | `ignoreElements` | `toStreamable` |
+|**Single** | `toFlowable`<sup>3</sup> | `toObservable` |  | `toMaybe` | `ignoreElement` | `toStreamable` |
+|**Maybe** | `toFlowable`<sup>3</sup> | `toObservable` | `toSingle` |  | `ignoreElement` | `toStreamable` |
+|**Completable** | `toFlowable` | `toObservable` | `toSingle` | `toMaybe` |  | `toStreamable` |
+|**Streamable** | `toFlowable` | `toObservable` | TBD | TBD | TBD | |
 
-<sup>1</sup>: When turning a multi-valued source into a single valued source, one should decide which of the many source values should be considered as the result.
+<sup>1</sup>: When turning a multivalued source into a single-valued source, one should decide which of the many source values should be considered as the result.
 
 <sup>2</sup>: Turning an `Observable` into `Flowable` requires an additional decision: what to do with the potential unconstrained flow
 of the source `Observable`? There are several strategies available (such as buffering, dropping, keeping the latest) via the `BackpressureStrategy` parameter or via standard `Flowable` operators such as `onBackpressureBuffer`, `onBackpressureDrop`, `onBackpressureLatest` which also
@@ -458,35 +458,73 @@ This can get also ambiguous when functional interface types get involved as the 
 
 #### Error handling
 
-Dataflows can fail, at which point the error is emitted to the consumer(s). Sometimes though, multiple sources may fail at which point there is a choice whether or not wait for all of them to complete or fail. To indicate this opportunity, many operator names are suffixed with the `DelayError` words (while others feature a `delayError` or `delayErrors` boolean flag in one of their overloads):
+Dataflows can fail, at which point the error is emitted to the consumer(s). Sometimes though, multiple sources may fail at which point there is a choice whether or not wait for all of them to complete or fail. 
+
+:warning: With 4.x, the number of overloads were reduced and all `DelayError` methods have been folded into
+configuration record parameter(s).
+
+To indicate this opportunity, operators now use configuration records, such as `StandardBufferedConfig`, `StandardConcurrentConfig` and `StandardConcurrentBufferedConfig` to pass along an error handling settings:
 
 ```java
 Flowable<T> concat(Publisher<? extends Publisher<? extends T>> sources);
 
-Flowable<T> concatDelayError(Publisher<? extends Publisher<? extends T>> sources);
+Flowable<T> concat(Publisher<? extends Publisher<? extends T>> sources, StandardBufferedConfig config);
+
+var config = new StandardBufferedConfig(ErrorMode.BOUNDARY);
+
+var config = new StandardBufferedConfig(true); // equivalent to ErrorMode.END
 ```
 
-Of course, suffixes of various kinds may appear together:
+The `ErrorMode` enum has 3 modes:
+
+- `IMMEDIATE` - emit the error as soon as possible
+- `BOUNDARY` - wait until a boundary or inner source change, may not make sense for certain operators and will act as `END`
+- `END` - wait until all sources (outer, inner) have terminated and present an aggregated error (usually via `CompositeException`) to the consumer.
+
+With varargs-style operators, the configuration record has to precede the varargs parameter:
 
 ```java
-Flowable<T> concatArrayEagerDelayError(Publisher<? extends T>... sources);
+Flowable<T> concatArrayEager(StandardConcurrentBufferedConfig config, Publisher<? extends T>... sources);
 ```
 
 #### Base class vs base type
 
-The base classes can be considered heavy due to the sheer number of static and instance methods on them. RxJava 2's design was heavily influenced by the [Reactive Streams](https://github.com/reactive-streams/reactive-streams-jvm#reactive-streams) specification, therefore, the library features a class and an interface per each reactive type:
+The base classes can be considered heavy due to the sheer number of static and instance methods on them. RxJava 4's design was heavily influenced by the [Reactive Streams](https://github.com/reactive-streams/reactive-streams-jvm#reactive-streams) specification, therefore, the library features a class and an interface per each reactive type:
 
 | Type | Class | Interface | Consumer |
 |------|-------|-----------|----------|
-| 0..N backpressured | `Flowable` | `Publisher`<sup>1</sup> | `Subscriber` |
+| 0..N backpressured | `Flowable` | `Flow.Publisher`<sup>1</sup> | `Flow.Subscriber` |
 | 0..N unbounded | `Observable` | `ObservableSource`<sup>2</sup> | `Observer` |
 | 1 element or error | `Single` | `SingleSource` | `SingleObserver` |
 | 0..1 element or error | `Maybe` | `MaybeSource` | `MaybeObserver` |
 | 0 element or error | `Completable` | `CompletableSource` | `CompletableObserver` |
+| 0..N coordinated | `Streamable` | <sup>3</sup> | `Streamer`, `StreamSink` |
 
-<sup>1</sup>The `org.reactivestreams.Publisher` is part of the external Reactive Streams library. It is the main type to interact with other reactive libraries through a standardized mechanism governed by the [Reactive Streams specification](https://github.com/reactive-streams/reactive-streams-jvm#specification).
+<sup>1</sup>The `java.util.concurrent.Flow.Publisher` is part of the Java internal Flow library. It is the main type to interact with other reactive libraries through a standardized mechanism governed by the [Reactive Streams specification](https://github.com/reactive-streams/reactive-streams-jvm#specification).
 
 <sup>2</sup>The naming convention of the interface was to append `Source` to the semi-traditional class name. There is no `FlowableSource` since `Publisher` is provided by the Reactive Streams library (and subtyping it wouldn't have helped with interoperation either). These interfaces are, however, not standard in the sense of the Reactive Streams specification and are currently RxJava specific only.
+
+<sup>3</sup> **2026.07.09** we haven't decided yet to have a `StreamableSource` becaue we control `Streamable`, unlike `Flow.Publisher`, so we can add defaulted operators there and still have `Streamable` a functional interface.
+
+### R8 and ProGuard settings
+
+By default, RxJava itself doesn't require any ProGuard/R8 settings and should work without problems. Unfortunately, the Reactive Streams dependency since version 1.0.3 has embedded Java 9 class files in its JAR that can cause warnings with the plain ProGuard:
+
+```
+Warning: org.reactivestreams.FlowAdapters$FlowPublisherFromReactive: can't find superclass or interface java.util.concurrent.Flow$Publisher
+Warning: org.reactivestreams.FlowAdapters$FlowToReactiveProcessor: can't find superclass or interface java.util.concurrent.Flow$Processor
+Warning: org.reactivestreams.FlowAdapters$FlowToReactiveSubscriber: can't find superclass or interface java.util.concurrent.Flow$Subscriber
+Warning: org.reactivestreams.FlowAdapters$FlowToReactiveSubscription: can't find superclass or interface java.util.concurrent.Flow$Subscription
+Warning: org.reactivestreams.FlowAdapters: can't find referenced class java.util.concurrent.Flow$Publisher
+```
+
+It is recommended one sets up the following `-dontwarn` entry in the application's `proguard-ruleset` file:
+
+```
+-dontwarn java.util.concurrent.Flow*
+```
+
+For R8, the RxJava jar includes the `META-INF/proguard/rxjava4.pro` with the same no-warning clause and should apply automatically.
 
 ### Further reading
 
@@ -497,20 +535,20 @@ For further details, consult the [wiki](https://github.com/ReactiveX/RxJava/wiki
 - Google Group: [RxJava](http://groups.google.com/d/forum/rxjava)
 - Twitter: [@RxJava](http://twitter.com/RxJava)
 - [GitHub Issues](https://github.com/ReactiveX/RxJava/issues)
-- StackOverflow: [rx-java](http://stackoverflow.com/questions/tagged/rx-java) and [rx-java2](http://stackoverflow.com/questions/tagged/rx-java2)
+- StackOverflow: [rx-java](http://stackoverflow.com/questions/tagged/rx-java), [rx-java2](http://stackoverflow.com/questions/tagged/rx-java2) and  [rx-java3](http://stackoverflow.com/questions/tagged/rx-java3)
 - [Gitter.im](https://gitter.im/ReactiveX/RxJava)
 
 ## Versioning
 
-Version 2.x is now considered stable and final. Version 1.x will be supported for several years along with 2.x. Enhancements and bugfixes will be synchronized between the two in a timely manner.
+Version 4.x is in development. Bugfixes will be applied to both 3.x and 4.x branches if possible, but new features will only be added to 4.x.
 
-Minor 2.x increments (such as 2.1, 2.2, etc) will occur when non-trivial new functionality is added or significant enhancements or bug fixes occur that may have behavioral changes that may affect some edge cases (such as dependence on behavior resulting from a bug). An example of an enhancement that would classify as this is adding reactive pull backpressure support to an operator that previously did not support it. This should be backwards compatible but does behave differently.
+Minor 4.x increments (such as 4.1, 4.2, etc) will occur when non-trivial new functionality is added or significant enhancements or bug fixes occur that may have behavioral changes that may affect some edge cases (such as dependence on behavior resulting from a bug). An example of an enhancement that would classify as this is adding reactive pull backpressure support to an operator that previously did not support it. This should be backwards compatible but does behave differently.
 
-Patch 2.x.y increments (such as 2.0.0 -> 2.0.1, 2.3.1 -> 2.3.2, etc) will occur for bug fixes and trivial functionality (like adding a method overload). New functionality marked with an [`@Beta`][beta source link] or [`@Experimental`][experimental source link] annotation can also be added in patch releases to allow rapid exploration and iteration of unstable new functionality. 
+Patch 4.x.y increments (such as 4.0.0 -> 4.0.1, 4.3.1 -> 4.3.2, etc) will occur for bug fixes and trivial functionality (like adding a method overload). New functionality marked with an [`@Beta`][beta source link] or [`@Experimental`][experimental source link] annotation can also be added in the patch releases to allow rapid exploration and iteration of unstable new functionality. 
 
 #### @Beta
 
-APIs marked with the [`@Beta`][beta source link] annotation at the class or method level are subject to change. They can be modified in any way, or even removed, at any time. If your code is a library itself (i.e. it is used on the CLASSPATH of users outside your own control), you should not use beta APIs, unless you repackage them (e.g. using ProGuard, shading, etc).
+APIs marked with the [`@Beta`][beta source link] annotation at the class or method level are subject to change. They can be modified in any way, or even removed, at any time. If your code is a library itself (i.e. it is used on the CLASSPATH of users outside your control), you should not use beta APIs, unless you repackage them (e.g. using ProGuard, shading, etc).
 
 #### @Experimental
 
@@ -518,34 +556,34 @@ APIs marked with the [`@Experimental`][experimental source link] annotation at t
 
 #### @Deprecated
 
-APIs marked with the `@Deprecated` annotation at the class or method level will remain supported until the next major release but it is recommended to stop using them. 
+APIs marked with the `@Deprecated` annotation at the class or method level will remain supported until the next major release, but it is recommended to stop using them. 
 
-#### io.reactivex.internal.*
+#### io.reactivex.rxjava4.internal.*
 
-All code inside the `io.reactivex.internal.*` packages is considered private API and should not be relied upon at all. It can change at any time. 
+All code inside the `io.reactivex.rxjava4.internal.*` packages are considered private API and should not be relied upon at all. It can change at any time. 
 
 ## Full Documentation
 
 - [Wiki](https://github.com/ReactiveX/RxJava/wiki)
-- [Javadoc](http://reactivex.io/RxJava/2.x/javadoc/)
-- [Latest snaphot Javadoc](http://reactivex.io/RxJava/2.x/javadoc/snapshot/)
-- Javadoc of a specific [release version](https://github.com/ReactiveX/RxJava/tags): `http://reactivex.io/RxJava/2.x/javadoc/2.x.y/`
+- [Javadoc](http://reactivex.io/RxJava/4.x/javadoc/)
+- [Latest snaphot Javadoc](http://reactivex.io/RxJava/4.x/javadoc/snapshot/)
+- Javadoc of a specific [release version](https://github.com/ReactiveX/RxJava/tags): `http://reactivex.io/RxJava/4.x/javadoc/4.x.y/`
 
 ## Binaries
 
-Binaries and dependency information for Maven, Ivy, Gradle and others can be found at [http://search.maven.org](http://search.maven.org/#search%7Cga%7C1%7Cio.reactivex.rxjava2).
+Binaries and dependency information for Maven, Ivy, Gradle and others can be found at [http://search.maven.org](http://search.maven.org/#search%7Cga%7C1%7Cio.reactivex.rxjava4).
 
 Example for Gradle:
 
 ```groovy
-compile 'io.reactivex.rxjava2:rxjava:x.y.z'
+implementation 'io.reactivex.rxjava4:rxjava:x.y.z'
 ```
 
 and for Maven:
 
 ```xml
 <dependency>
-    <groupId>io.reactivex.rxjava2</groupId>
+    <groupId>io.reactivex.rxjava4</groupId>
     <artifactId>rxjava</artifactId>
     <version>x.y.z</version>
 </dependency>
@@ -553,20 +591,24 @@ and for Maven:
 and for Ivy:
 
 ```xml
-<dependency org="io.reactivex.rxjava2" name="rxjava" rev="x.y.z" />
+<dependency org="io.reactivex.rxjava4" name="rxjava" rev="x.y.z" />
 ```
 
-Snapshots are available via https://oss.jfrog.org/libs-snapshot/io/reactivex/rxjava2/rxjava/
+### Snapshots
+
+Snapshots after May 19th, 2025 are available via https://central.sonatype.com/repository/maven-snapshots/io/reactivex/rxjava4/rxjava/
 
 ```groovy
 repositories {
-    maven { url 'https://oss.jfrog.org/libs-snapshot' }
+  maven { url 'https://central.sonatype.com/repository/maven-snapshots' }
 }
 
 dependencies {
-    compile 'io.reactivex.rxjava2:rxjava:2.2.0-SNAPSHOT'
+  implementation 'io.reactivex.rxjava4:rxjava:4.0.0-SNAPSHOT'
 }
 ```
+
+Javadoc snapshots are available at https://reactivex.io/RxJava/4.x/javadoc/snapshot
 
 ## Build
 
@@ -582,7 +624,37 @@ Further details on building can be found on the [Getting Started](https://github
 
 ## Bugs and Feedback
 
-For bugs, questions and discussions please use the [Github Issues](https://github.com/ReactiveX/RxJava/issues).
+For bugs, questions and discussions please use the [GitHub Issues](https://github.com/ReactiveX/RxJava/issues).
+
+## Prior versions
+
+#### Version 3.x ([Javadoc](http://reactivex.io/RxJava/3.x/javadoc/))
+
+- Single dependency: [Reactive-Streams](https://github.com/reactive-streams/reactive-streams-jvm).
+- Java 8+ or Android API 21+ required.
+- Java 8 lambda-friendly API.
+- [Android](https://github.com/ReactiveX/RxAndroid) desugar friendly.
+- Fixed API mistakes and many limits of RxJava 2.
+- Intended to be a replacement for RxJava 2 with relatively few binary incompatible changes.
+- Non-opinionated about the source of concurrency (threads, pools, event loops, fibers, actors, etc.).
+- Async or synchronous execution.
+- Virtual time and schedulers for parameterized concurrency.
+- Test and diagnostic support via test schedulers, test consumers and plugin hooks.
+- Interop with newer JDK versions via 3rd party libraries, such as
+  - [Java 9 Flow API](https://github.com/akarnokd/RxJavaJdk9Interop#rxjavajdk9interop)
+  - [Java 21 Virtual Threads](https://github.com/akarnokd/RxJavaFiberInterop#rxjavafiberinterop)
+
+Learn more about RxJava in general on the <a href="https://github.com/ReactiveX/RxJava/wiki">Wiki Home</a>.
+
+:information_source: Please read the [What's different in 3.0](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-3.0) for details on the changes and migration information when upgrading from 2.x.
+
+#### Version 2.x
+
+The [2.x version](https://github.com/ReactiveX/RxJava/tree/2.x) is end-of-life as of **February 28, 2021**. No further development, support, maintenance, PRs and updates will happen. The [Javadoc]([Javadoc](http://reactivex.io/RxJava/2.x/javadoc/)) of the very last version, **2.2.21**, will remain accessible.
+
+#### Version 1.x
+
+The [1.x version](https://github.com/ReactiveX/RxJava/tree/1.x) is end-of-life as of **March 31, 2018**. No further development, support, maintenance, PRs and updates will happen. The [Javadoc]([Javadoc](http://reactivex.io/RxJava/1.x/javadoc/)) of the very last version, **1.3.8**, will remain accessible.
 
  
 ## LICENSE
@@ -601,5 +673,5 @@ For bugs, questions and discussions please use the [Github Issues](https://githu
     See the License for the specific language governing permissions and
     limitations under the License.
 
-[beta source link]: https://github.com/ReactiveX/RxJava/blob/2.x/src/main/java/io/reactivex/annotations/Beta.java
-[experimental source link]: https://github.com/ReactiveX/RxJava/blob/2.x/src/main/java/io/reactivex/annotations/Experimental.java
+[beta source link]: https://github.com/ReactiveX/RxJava/blob/4.x/src/main/java/io/reactivex/rxjava4/annotations/Beta.java
+[experimental source link]: https://github.com/ReactiveX/RxJava/blob/4.x/src/main/java/io/reactivex/rxjava4/annotations/Experimental.java

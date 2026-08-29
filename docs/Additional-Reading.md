@@ -3,7 +3,7 @@ A more complete and up-to-date list of resources can be found at the [reactivex.
 # Introducing Reactive Programming
 * [Introduction to Rx](http://www.introtorx.com/): a free, on-line book by Lee Campbell **(1.x)**
 * [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) by Andre Staltz
-* [Mastering Observables](http://docs.couchbase.com/developer/java-2.0/observables.html) from the Couchbase documentation **(1.x)**
+* [Mastering Observables](https://docs.huihoo.com/couchbase/developer-guide/java-2.0/observables.html) from the Couchbase documentation **(1.x)**
 * [Reactive Programming in Java 8 With RxJava](http://pluralsight.com/training/Courses/TableOfContents/reactive-programming-java-8-rxjava), a course designed by Russell Elledge **(1.x)**
 * [33rd Degree Reactive Java](http://www.slideshare.net/tkowalcz/33rd-degree-reactive-java) by Tomasz Kowalczewski **(1.x)**
 * [What Every Hipster Should Know About Functional Reactive Programming](http://www.infoq.com/presentations/game-functional-reactive-programming) - Bodil Stokke demos the creation of interactive game mechanics in RxJS
@@ -15,6 +15,7 @@ A more complete and up-to-date list of resources can be found at the [reactivex.
 * StackOverflow: [What is (functional) reactive programming?](http://stackoverflow.com/a/1030631/1946802)
 * [The Reactive Manifesto](http://www.reactivemanifesto.org/)
 * Grokking RxJava, [Part 1: The Basics](http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/), [Part 2: Operator, Operator](http://blog.danlew.net/2014/09/22/grokking-rxjava-part-2/), [Part 3: Reactive with Benefits](http://blog.danlew.net/2014/09/30/grokking-rxjava-part-3/), [Part 4: Reactive Android](http://blog.danlew.net/2014/10/08/grokking-rxjava-part-4/) - published in Sep/Oct 2014 by Daniel Lew **(1.x)**
+* [Reactive Programming on Android with RxJava](https://leanpub.com/reactiveandroid), a free e-book by Chris Arriola and Angus Huang.
 
 # How Netflix Is Using RxJava
 * LambdaJam Chicago 2013: [Functional Reactive Programming in the Netflix API](https://speakerdeck.com/benjchristensen/functional-reactive-programming-in-the-netflix-api-lambdajam-2013) by Ben Christensen **(1.x)**
@@ -37,16 +38,16 @@ A more complete and up-to-date list of resources can be found at the [reactivex.
 * [MSDN Rx forum](http://social.msdn.microsoft.com/Forums/en-US/home?forum=rx)
 
 # RxJS
-* [the RxJS github site](https://github.com/reactivex/rxjs)
-* An interactive tutorial: [Functional Programming in Javascript](http://jhusain.github.io/learnrx/) and [an accompanying lecture (video)](http://www.youtube.com/watch?v=LB4lhFJBBq0) by Jafar Husain
+* [the RxJS GitHub site](https://github.com/reactivex/rxjs)
+* An interactive tutorial: [Functional Programming in JavaScript](http://jhusain.github.io/learnrx/) and [an accompanying lecture (video)](http://www.youtube.com/watch?v=LB4lhFJBBq0) by Jafar Husain
 * [Netflix JavaScript Talks - Async JavaScript with Reactive Extensions](https://www.youtube.com/watch?v=XRYN2xt11Ek) video of a talk by Jafar Husain about the Rx way of programming
 * [RxJS](https://xgrommx.github.io/rx-book/), an on-line book by @xgrommx
-* [Journey from procedural to reactive Javascript with stops](https://glebbahmutov.com/blog/journey-from-procedural-to-reactive-javascript-with-stops/) by Gleb Bahmutov
+* [Journey from procedural to reactive JavaScript with stops](https://glebbahmutov.com/blog/journey-from-procedural-to-reactive-javascript-with-stops/) by Gleb Bahmutov
 
 # RxAndroid
 
 * [FRP on Android](http://slides.com/yaroslavheriatovych/frponandroid#/) - publish in Jan 2014 by Yaroslav Heriatovych **(1.x)**
-* [RxAndroid Github page](https://github.com/ReactiveX/RxAndroid) **(2.x)**
+* [RxAndroid GitHub page](https://github.com/ReactiveX/RxAndroid) **(2.x)**
 * [RxAndroid basics](https://medium.com/@kurtisnusbaum/rxandroid-basics-part-1-c0d5edcf6850) **(1.x & 2.x)**
 * [RxJava and RxAndroid on AndroidHive](https://www.androidhive.info/RxJava/) **(1.x & 2.x)**
 * [Reactive Programming with RxAndroid in Kotlin: An Introduction](https://www.raywenderlich.com/384-reactive-programming-with-rxandroid-in-kotlin-an-introduction) **(2.x)**

@@ -19,12 +19,7 @@ public static void hello(String... args) {
 If your platform doesn't support Java 8 lambdas (yet), you have to create an inner class of ```Consumer``` manually:
 ```java
 public static void hello(String... args) {
-  Flowable.fromArray(args).subscribe(new Consumer<String>() {
-      @Override
-      public void accept(String s) {
-          System.out.println("Hello " + s + "!");
-      }
-  });
+  Flowable.fromArray(args).subscribe((Consumer<String>) s -> System.out.println("Hello " + s + "!"));
 }
 ```
 
@@ -96,9 +91,9 @@ You use the Observable [`just( )`](http://reactivex.io/documentation/operators
 Observable<String> o = Observable.from("a", "b", "c");
 
 def list = [5, 6, 7, 8]
-Observable<Integer> o = Observable.from(list);
+Observable<Integer> o2 = Observable.from(list);
 
-Observable<String> o = Observable.just("one object");
+Observable<String> o3 = Observable.just("one object");
 ```
 
 These converted Observables will synchronously invoke the [`onNext( )`](Observable#onnext-oncompleted-and-onerror) method of any subscriber that subscribes to them, for each item to be emitted by the Observable, and will then invoke the subscriber’s [`onCompleted( )`](Observable#onnext-oncompleted-and-onerror) method.
@@ -285,7 +280,7 @@ onNext => value_14_xform
 
 Here is a marble diagram that illustrates this transformation:
 
-<img src="/Netflix/RxJava/wiki/images/rx-operators/Composition.1.png" width="640" height="536" />
+<img src="https://github.com/ReactiveX/RxJava/wiki/images/rx-operators/Composition.1.v3.png" width="640" height="536" />
 
 This next example, in Clojure, consumes three asynchronous Observables, including a dependency from one to another, and emits a single response item by combining the items emitted by each of the three Observables with the [`zip`](http://reactivex.io/documentation/operators/zip.html) operator and then transforming the result with [`map`](http://reactivex.io/documentation/operators/map.html):
 
@@ -333,7 +328,7 @@ The response looks like this:
 
 And here is a marble diagram that illustrates how that code produces that response:
 
-<img src="/Netflix/RxJava/wiki/images/rx-operators/Composition.2.png" width="640" height="742" />
+<img src="https://github.com/ReactiveX/RxJava/wiki/images/rx-operators/Composition.2.v3.png" width="640" height="742" />
 
 The following example, in Groovy, comes from [Ben Christensen’s QCon presentation on the evolution of the Netflix API](https://speakerdeck.com/benjchristensen/evolution-of-the-netflix-api-qcon-sf-2013). It combines two Observables with the [`merge`](http://reactivex.io/documentation/operators/merge.html) operator, then uses the [`reduce`](http://reactivex.io/documentation/operators/reduce.html) operator to construct a single item out of the resulting sequence, then transforms that item with [`map`](http://reactivex.io/documentation/operators/map.html) before emitting it:
 
@@ -350,7 +345,7 @@ public Observable getVideoSummary(APIVideo video) {
 
 And here is a marble diagram that illustrates how that code uses the [`reduce`](http://reactivex.io/documentation/operators/reduce.html) operator to bring the results from multiple Observables together in one structure:
 
-<img src="/Netflix/RxJava/wiki/images/rx-operators/Composition.3.png" width="640" height="640" />
+<img src="https://github.com/ReactiveX/RxJava/wiki/images/rx-operators/Composition.3.v3.png" width="640" height="640" />
 
 ## Error Handling
 
@@ -395,7 +390,7 @@ fetchWikipediaArticleAsynchronouslyWithErrorHandling("Tiger", "NonExistentTitle"
 
 See the [Error-Handling-Operators](Error-Handling-Operators) page for more information on specialized error handling techniques in RxJava, including methods like [`onErrorResumeNext()`](http://reactivex.io/documentation/operators/catch.html) and [`onErrorReturn()`](http://reactivex.io/documentation/operators/catch.html) that allow Observables to continue with fallbacks in the event that they encounter errors.
 
-Here is an example of how you can use such a method to pass along custom information about any exceptions you encounter. Imagine you have an Observable or cascade of Observables — `myObservable` — and you want to intercept any exceptions that would normally pass through to an Subscriber’s `onError` method, replacing these with a customized Throwable of your own design. You could do this by modifying `myObservable` with the [`onErrorResumeNext()`](http://reactivex.io/documentation/operators/catch.html) method, and passing into that method an Observable that calls `onError` with your customized Throwable (a utility method called [`error()`](http://reactivex.io/documentation/operators/empty-never-throw.html) will generate such an Observable for you):
+Here is an example of how you can use such a method to pass along custom information about any exceptions you encounter. Imagine you have an Observable or cascade of Observables — `myObservable` — and you want to intercept any exceptions that would normally pass through to a Subscriber’s `onError` method, replacing these with a customized Throwable of your own design. You could do this by modifying `myObservable` with the [`onErrorResumeNext()`](http://reactivex.io/documentation/operators/catch.html) method, and passing into that method an Observable that calls `onError` with your customized Throwable (a utility method called [`error()`](http://reactivex.io/documentation/operators/empty-never-throw.html) will generate such an Observable for you):
 
 ```groovy
 myModifiedObservable = myObservable.onErrorResumeNext({ t ->

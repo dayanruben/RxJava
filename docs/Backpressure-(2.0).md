@@ -40,7 +40,7 @@ However, backpressure is present more subtly in regular cold sequences (which do
 
 There is no error and everything runs smoothly with small memory usage. The reason for this is that many source operators can "generate" values on demand and thus the operator `observeOn` can tell the `range` generate at most so many values the `observeOn` buffer can hold at once without overflow.
 
-This negotiation is based on the computer science concept of co-routines (I call you, you call me). The operator `range` sends a callback, in the form of an implementation of the `org.reactivestreams.Subscription` interface, to the `observeOn` by calling its (inner `Subscriber`'s) `onSubscribe`. In return, the `observeOn` calls `Subscription.request(n)` with a value to tell the `range` it is allowed to produce (i.e., `onNext` it) that many **additional** elements. It is then the `observeOn`'s responsibility to call the `request` method in the right time and with the right value to keep the data flowing but not overflowing.
+This negotiation is based on the computer science concept of co-routines (I call you, you call me). The operator `range` sends a callback, in the form of an implementation of the `java.util.concurrent.Flow.Subscription` interface, to the `observeOn` by calling its (inner `Subscriber`'s) `onSubscribe`. In return, the `observeOn` calls `Subscription.request(n)` with a value to tell the `range` it is allowed to produce (i.e., `onNext` it) that many **additional** elements. It is then the `observeOn`'s responsibility to call the `request` method in the right time and with the right value to keep the data flowing but not overflowing.
 
 Expressing backpressure in end-consumers is rarely necessary (because they are synchronous in respect to their immediate upstream and backpressure naturally happens due to call-stack blocking), but it may be easier to understand the workings of it:
 
@@ -172,7 +172,7 @@ If some of the values can be safely ignored, one can use the sampling (with time
     }
 ```
 
-Note hovewer that these operators only reduce the rate of value reception by the downstream and thus they may still lead to `MissingBackpressureException`.
+Note however that these operators only reduce the rate of value reception by the downstream and thus they may still lead to `MissingBackpressureException`.
 
 ## onBackpressureBuffer()
 
@@ -210,7 +210,7 @@ This overload calls a (shared) action in case an overflow happens. Its usefulnes
 
 ### onBackpressureBuffer(int capacity, Action onOverflow, BackpressureOverflowStrategy strategy)
 
-This overload is actually more useful as it let's one define what to do in case the capacity has been reached. The `BackpressureOverflow.Strategy` is an interface actually but the class `BackpressureOverflow` offers 4 static fields with implementations of it representing typical actions:
+This overload is actually more useful as it lets one define what to do in case the capacity has been reached. The `BackpressureOverflow.Strategy` is an interface actually but the class `BackpressureOverflow` offers 4 static fields with implementations of it representing typical actions:
 
   - `ON_OVERFLOW_ERROR`: this is the default behavior of the previous two overloads, signalling a `BufferOverflowException`
   - `ON_OVERFLOW_DEFAULT`: currently it is the same as `ON_OVERFLOW_ERROR`
@@ -229,7 +229,7 @@ Note that the last two strategies cause discontinuity in the stream as they drop
 
 ## onBackpressureDrop()
 
-Whenever the downstream is not ready to receive values, this operator will drop that elemenet from the sequence. One can think of it as a 0 capacity `onBackpressureBuffer` with strategy `ON_OVERFLOW_DROP_LATEST`.
+Whenever the downstream is not ready to receive values, this operator will drop that element from the sequence. One can think of it as a 0 capacity `onBackpressureBuffer` with strategy `ON_OVERFLOW_DROP_LATEST`.
 
 This operator is useful when one can safely ignore values from a source (such as mouse moves or current GPS location signals) as there will be more up-to-date values later on.
 
@@ -406,7 +406,7 @@ The first callbacks allows one to create a per-subscriber state, such as the `Fi
 
 The second callback takes this state object and provides an output `Observer` whose `onXXX` methods can be called to emit values. This callback is executed as many times as the downstream requested. At each invocation, it has to call `onNext` at most once optionally followed by either `onError` or `onComplete`. In the example we call `onComplete()` if the read byte is negative, indicating and end of file, and call `onError` in case the read throws an `IOException`. 
 
-The final callback gets invoked when the downstream unsubscribes (closing the inputstream) or when the previous callback called the terminal methods; it allows freeing up resources. Since not all sources need all these features, the static methods of `Flowable.generate` let's one create instances without them.
+The final callback gets invoked when the downstream unsubscribes (closing the inputstream) or when the previous callback called the terminal methods; it allows freeing up resources. Since not all sources need all these features, the static methods of `Flowable.generate` lets one create instances without them.
 
 Unfortunately, many method calls across the JVM and other libraries throw checked exceptions and need to be wrapped into `try-catch`es as the functional interfaces used by this class don't allow throwing checked exceptions.
 
@@ -500,4 +500,4 @@ The second scenario usually involves some asynchronous, callback-based API that 
     }, BackpressureMode.LATEST);
 ```
 
-In this case, the delegation works the same way. Unfortunately, usually, these classical callback-style APIs don't support cancellation, but if they do, one can setup their cancellation just like in the previoius examples (with perhaps a more involved way though). Note the use of the `LATEST` backpressure mode; if we know there will be only a single value, we don't need the `BUFFER` strategy as it allocates a default 128 element long buffer (that grows as necessary) that is never going to be fully utilized.
+In this case, the delegation works the same way. Unfortunately, usually, these classical callback-style APIs don't support cancellation, but if they do, one can set up their cancellation just like in the previoius examples (with perhaps a more involved way though). Note the use of the `LATEST` backpressure mode; if we know there will be only a single value, we don't need the `BUFFER` strategy as it allocates a default 128 element long buffer (that grows as necessary) that is never going to be fully utilized.

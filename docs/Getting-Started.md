@@ -1,34 +1,34 @@
 ## Getting Binaries
 
-You can find binaries and dependency information for Maven, Ivy, Gradle, SBT, and others at [http://search.maven.org](http://search.maven.org/#search%7Cga%7C1%7Cg%3A"io.reactivex.rxjava2"%20AND%20"rxjava2").
+You can find binaries and dependency information for Maven, Ivy, Gradle, SBT, and others at [http://search.maven.org](https://search.maven.org/search?q=g:io.reactivex.rxjava4%20AND%20rxjava).
 
 Example for Maven:
 
 ```xml
 <dependency>
-    <groupId>io.reactivex.rxjava2</groupId>
+    <groupId>io.reactivex.rxjava4</groupId>
     <artifactId>rxjava</artifactId>
-    <version>2.2.0</version>
+    <version>x.y.z</version>
 </dependency>
 ```
 and for Ivy:
 
 ```xml
-<dependency org="io.reactivex.rxjava2" name="rxjava" rev="2.2.0" />
+<dependency org="io.reactivex.rxjava4" name="rxjava" rev="x.y.z" />
 ```
 
 and for SBT:
 
 ```scala
-libraryDependencies += "io.reactivex" %% "rxscala" % "0.26.5"
-
-libraryDependencies += "io.reactivex.rxjava2" % "rxjava" % "2.2.0"
+libraryDependencies += "io.reactivex.rxjava4" % "rxjava" % "x.y.z"
 ```
 
 and for Gradle:
 ```groovy
-compile 'io.reactivex.rxjava2:rxjava:2.2.0'
+implementation 'io.reactivex.rxjava4:rxjava:x.y.z'
 ```
+
+Replace `x.y.z` with a released version from Maven Central.
 
 If you need to download the jars instead of using a build system, create a Maven `pom` file like this with the desired version:
 
@@ -38,17 +38,14 @@ If you need to download the jars instead of using a build system, create a Maven
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
       <modelVersion>4.0.0</modelVersion>
-      <groupId>io.reactivex.rxjava2</groupId>
-      <artifactId>rxjava</artifactId>
-      <version>2.2.0</version>
-      <name>RxJava</name>
-      <description>Reactive Extensions for Java</description>
-      <url>https://github.com/ReactiveX/RxJava</url>
+      <groupId>com.example</groupId>
+      <artifactId>download-rxjava</artifactId>
+      <version>1.0.0</version>
       <dependencies>
           <dependency>
-              <groupId>io.reactivex.rxjava2</groupId>
+              <groupId>io.reactivex.rxjava4</groupId>
               <artifactId>rxjava</artifactId>
-              <version>2.2.0</version>
+              <version>x.y.z</version>
           </dependency>
       </dependencies>
 </project>
@@ -62,21 +59,24 @@ $ mvn -f download-rxjava-pom.xml dependency:copy-dependencies
 
 That command downloads `rxjava-*.jar` and its dependencies into `./target/dependency/`.
 
-You need Java 6 or later.
+You need Java 26 or later.
 
 ### Snapshots
 
-Snapshots are available via [JFrog](https://oss.jfrog.org/libs-snapshot/io/reactivex/rxjava2/rxjava/):
+Snapshots after May 19th, 2025 are available via https://central.sonatype.com/repository/maven-snapshots/io/reactivex/rxjava4/rxjava/
 
 ```groovy
 repositories {
-    maven { url 'https://oss.jfrog.org/libs-snapshot' }
+  maven { url 'https://central.sonatype.com/repository/maven-snapshots' }
 }
 
 dependencies {
-    compile 'io.reactivex.rxjava2:rxjava:2.2.0-SNAPSHOT'
+  implementation 'io.reactivex.rxjava4:rxjava:4.0.0-SNAPSHOT'
 }
 ```
+
+Javadoc snapshots are available at https://reactivex.io/RxJava/4.x/javadoc/snapshot
+
 
 ## Building
 

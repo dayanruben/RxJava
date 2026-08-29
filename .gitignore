@@ -73,3 +73,10 @@ bin/
 # PMD files
 .pmd
 .ruleset
+test-output/
+
+# Checkstyle local config
+.checkstyle
+
+# Some editor's config
+.editorconfig

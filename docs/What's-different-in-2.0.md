@@ -60,7 +60,7 @@ Observable.just(1).map(v -> null)
 This means that `Observable<Void>` can no longer emit any values but only terminate normally or with an exception. API designers may instead choose to define `Observable<Object>` with no guarantee on what `Object` will be (which should be irrelevant anyway). For example, if one needs a signaller-like source, a shared enum can be defined and its solo instance `onNext`'d:
 
 ```java
-enum Irrelevant { INSTANCE; }
+enum Irrelevant { INSTANCE}
 
 Observable<Object> source = Observable.create((ObservableEmitter<Object> emitter) -> {
    System.out.println("Side-effect 1");
@@ -137,7 +137,7 @@ and still follows the protocol `onSubscribe (onComplete | onError)?`.
 
 RxJava 2.0.0-RC2 introduced a new base reactive type called `Maybe`. Conceptually, it is a union of `Single` and `Completable` providing the means to capture an emission pattern where there could be 0 or 1 item or an error signalled by some reactive source.
 
-The `Maybe` class is accompanied by `MaybeSource` as its base interface type, `MaybeObserver<T>` as its signal-receiving interface and follows the protocol `onSubscribe (onSuccess | onError | onComplete)?`. Because there could be at most 1 element emitted, the `Maybe` type has no notion of backpressure (because there is no buffer bloat possible as with unknown length `Flowable`s or `Observable`s.
+The `Maybe` class is accompanied by `MaybeSource` as its base interface type, `MaybeObserver<T>` as its signal-receiving interface and follows the protocol `onSubscribe (onSuccess | onError | onComplete)?`. Because there could be at most 1 element emitted, the `Maybe` type has no notion of backpressure (because there is no buffer bloat possible as with unknown length `Flowable`s or `Observable`s).
 
 This means that an invocation of `onSubscribe(Disposable)` is potentially followed by one of the other `onXXX` methods. Unlike `Flowable`, if there is only a single value to be signalled, only `onSuccess` is called and `onComplete` is not.
 
@@ -450,12 +450,12 @@ Before 2.0.7, the operator `strict()` had to be applied in order to achieve the 
 
 As one of the primary goals of RxJava 2, the design focuses on performance and in order enable it, RxJava 2.0.7 adds a custom `io.reactivex.FlowableSubscriber` interface (extends `org.reactivestreams.Subscriber`) but adds no new methods to it. The new interface is **constrained to RxJava 2** and represents a consumer to `Flowable` that is able to work in a mode that relaxes the Reactive Streams version 1.0.0 specification in rules §1.3, §2.3, §2.12 and §3.9:
 
-  - §1.3 relaxation: `onSubscribe` may run concurrently with `onNext` in case the `FlowableSubscriber` calls `request()` from inside `onSubscribe` and it is the resposibility of `FlowableSubscriber` to ensure thread-safety between the remaining instructions in `onSubscribe` and `onNext`.
+  - §1.3 relaxation: `onSubscribe` may run concurrently with `onNext` in case the `FlowableSubscriber` calls `request()` from inside `onSubscribe` and it is the responsibility of `FlowableSubscriber` to ensure thread-safety between the remaining instructions in `onSubscribe` and `onNext`.
   - §2.3 relaxation: calling `Subscription.cancel` and `Subscription.request` from `FlowableSubscriber.onComplete()` or `FlowableSubscriber.onError()` is considered a no-operation.
   - §2.12 relaxation: if the same `FlowableSubscriber` instance is subscribed to multiple sources, it must ensure its `onXXX` methods remain thread safe.
   - §3.9 relaxation: issuing a non-positive `request()` will not stop the current stream but signal an error via `RxJavaPlugins.onError`.
 
-From a user's perspective, if one was using the the `subscribe` methods other than `Flowable.subscribe(Subscriber<? super T>)`, there is no need to do anything regarding this change and there is no extra penalty for it.
+From a user's perspective, if one was using the `subscribe` methods other than `Flowable.subscribe(Subscriber<? super T>)`, there is no need to do anything regarding this change and there is no extra penalty for it.
 
 If one was using `Flowable.subscribe(Subscriber<? super T>)` with the built-in RxJava `Subscriber` implementations such as `DisposableSubscriber`, `TestSubscriber` and `ResourceSubscriber`, there is a small runtime overhead (one `instanceof` check) associated when the code is not recompiled against 2.0.7.
 
@@ -475,7 +475,7 @@ One important design requirement for 2.x is that no `Throwable` errors should be
 
 Such errors are routed to the `RxJavaPlugins.onError` handler. This handler can be overridden with the method `RxJavaPlugins.setErrorHandler(Consumer<Throwable>)`. Without a specific handler, RxJava defaults to printing the `Throwable`'s stacktrace to the console and calls the current thread's uncaught exception handler.
 
-On desktop Java, this latter handler does nothing on an `ExecutorService` backed `Scheduler` and the application can keep running. However, Android is more strict and terminates the application in such uncaught exception cases. 
+On desktop Java, this latter handler does nothing on an `ExecutorService` backed `Scheduler` and the application can keep running. However, Android is stricter and terminates the application in such uncaught exception cases. 
 
 If this behavior is desirable can be debated, but in any case, if you want to avoid such calls to the uncaught exception handler, the **final application** that uses RxJava 2 (directly or transitively) should set a no-op handler:
 
